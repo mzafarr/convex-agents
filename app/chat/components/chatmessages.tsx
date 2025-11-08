@@ -103,7 +103,8 @@ const ChatMessages = ({ threadId }: { threadId: string }) => {
     return (
         <div className="space-y-3">
             {toUIMessages(messages.results ?? []).map((message, index) => {
-                const stableKey = (message as any).id ?? (message as any)._id ?? `${message.role}:${message.content?.slice(0, 24) ?? ""}:${index}`;
+                const messageWithId = message as UIMessage & { id?: string; _id?: string };
+                const stableKey = messageWithId.id ?? messageWithId._id ?? `${message.role}:${message.content?.slice(0, 24) ?? ""}:${index}`;
                 return <MessageBubble key={stableKey} message={message} />;
             })}
             <div ref={scrollRef} />

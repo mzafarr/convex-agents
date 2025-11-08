@@ -162,7 +162,7 @@ function QuizConversation({ threadId }: { threadId: string }) {
         if (object && !isLoading) {
             clear()
         }
-    }, [object, isLoading])
+    }, [object, isLoading, clear])
 
     return <div className="flex flex-col gap-4">
         <div className="flex-1 overflow-y-auto max-h-[calc(100vh-100px)] min-h-[620px]">
@@ -210,17 +210,15 @@ const ChatBubble = ({ message }: { message: UIMessage }) => {
 
     if (message.role === "assistant") {
 
-        // now I want the types to be like the the structured object that is returned from the agent
+        type QuizResult = {
+            questions: Array<{
+                question: string;
+                options: string[];
+                answer: string;
+            }>;
+        };
 
-        const resultSchema = z.object({
-            questions: z.array(z.object({
-                question: z.string(),
-                options: z.array(z.string()),
-                answer: z.string(),
-            }))
-        })
-
-        const structuredContent = JSON.parse(message.content) as z.infer<typeof resultSchema>
+        const structuredContent = JSON.parse(message.content) as QuizResult;
 
         return <div className="bg-gray-300 p-2 rounded-md">
             <Button onClick={() => {

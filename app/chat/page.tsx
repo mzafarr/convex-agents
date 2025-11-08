@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { api } from "@/convex/_generated/api"
 import { Authenticated, useConvexAuth, useMutation, useQuery } from "convex/react"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import ChatMessages from "./components/chatmessages"
 
 export default function ChatPage() {
